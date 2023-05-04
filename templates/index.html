@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fruits</title>
+</head>
+<body>
+    <div id="remove_item">
+        {% for item in shopping_items %}
+            <input type="checkbox" name="{{item}}" id="remove_{{item}}">
+            <label for="remove_{{item}}">{{item}}</label>
+            <br>        
+        {% endfor %}
+        <input type="submit" value="REMOVE ITEM">
+        <br><br>
+    </div>
+
+    <div id="add_items">
+        <form action="/add_items" method="post">
+            <select name="select_items" id="">
+                {% for item in all_items %}
+                    <option value="{{item}}">{{item}}</option>
+                {% endfor %}
+                <br>
+                <input type="submit" value="Add Item">
+            </select>
+        </form>
+    </div>
+</body>
+</html>

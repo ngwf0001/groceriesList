@@ -12,7 +12,21 @@ def index():
     session['all_items'] = all_items
     return render_template('index.html', 
                         all_items=all_items, 
-                        shopping_items=shopping_items)
+                        shopping_items=shopping_items, x = "Welcome Frankie!")
+    
+@app.route("/remove_items", methods=['POST'])
+def remove_items():
+    item_selected = request.values.getlist('check')
+    print(item_selected)
+    for item in item_selected:
+        idx = session['shopping_list'].index(item)
+        session['shopping_list'].pop(idx)
+        session.modified=True
+    return render_template('index.html',  
+                    all_items=session['all_items'], 
+                    shopping_items=session['shopping_list'], x =1)
+    
+    
 
 @app.route("/add_items", methods=['POST'])
 def add_items():
@@ -21,7 +35,7 @@ def add_items():
     session.modified=True
     return render_template('index.html', 
                     all_items=session['all_items'], 
-                    shopping_items=session['shopping_list'])
+                    shopping_items=session['shopping_list'], x =f"{item_selected} added")
 
 def get_db():
     db = getattr(g, '_database', None)

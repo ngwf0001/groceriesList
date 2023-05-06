@@ -4,17 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" {{url_for('static', filename ='css/main.css')}}">
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
     <title>fruits</title>
 </head>
 <body>
-    <div id="remove_item">
+    <!-- logo -->
+    <div>
+        <img src="static/logo_black.png" alt="logo">
+    </div>
+
+    {% if x %}
+        <dialog open>
+            <p>{{x}} </p>
+            <form method="dialog">
+                <button>OK</button>
+            </form>
+        </dialog>
+    {% endif %}
+
+
+    <div id="remove_items">
+        <form action="/remove_items" method="post">
         {% for item in shopping_items %}
-            <input type="checkbox" name="{{item}}" id="remove_{{item}}">
-            <label for="remove_{{item}}">{{item}}</label>
-            <br>        
+
+            <input type="checkbox" name="check" id="{{item}}" value="{{item}}"
+                onchange="check_me('{{item}}')">
+            <label for="{{item}}" name="{{item}}">{{item}}</label>
+            <br>
+
         {% endfor %}
-        <input type="submit" value="REMOVE ITEM">
-        <br><br>
+            <input type="submit" value="Check ITEM" id="remove_btn">
+        </form>
+
     </div>
 
     <div id="add_items">
@@ -24,7 +46,7 @@
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
                 <br>
-                <input type="submit" value="Add Item">
+                <input type="submit" value="Add Item" id="add_btn">
             </select>
         </form>
     </div>
